@@ -20,6 +20,6 @@ services:
       - "3000:3000"
 
 volumes:
-  grafana-storage: 
+  grafana-storage:
   prometheus-data:
 
