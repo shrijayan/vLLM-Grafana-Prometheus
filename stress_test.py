@@ -29,7 +29,7 @@ async def send_request(semaphore):
                 {"role": "system", "content": "When people ask you to write code, follow Uncle BOB's clean code practice."},
                 {"role": "user", "content": "Write a very very very 10000 words story."}
             ]
-            response = client.chat.completions.create(model="DeepSeek-R1-Distill-Qwen-7B", messages=messages)
+            response = client.chat.completions.create(model="DeepSeek-R1", messages=messages)
         except Exception as e:
             print(f"Request failed: {e}")
         finally:
