@@ -18,7 +18,7 @@ Custom TCP
 0-65535
 shrijayan-security-group
 ```
-![Security Group](asserts/image.png)
+![Security Group](image-1.png)
 
 <!-- Initial Setup:
 ```
@@ -41,12 +41,19 @@ sudo reboot
 nvidia-smi
 ``` -->
 
+Tmux:
+```
+sudo apt install tmux
+tmux new -s vllm
+
+source vllm/bin/activate
+```
+
 Installing Dependencies:
 ```
 sudo apt install python3.12-venv
 python3.12 -m venv vllm
 source vllm/bin/activate
-
 pip install vllm ray
 ```
 
@@ -58,22 +65,6 @@ Take the ID and paste in other machine to connect to the same ray cluster
 
 ```
 ray status
-```
-
-Tmux:
-```
-sudo apt install tmux
-tmux new -s vllm
-
-source vllm/bin/activate
-```
-
-Install Model:
-```
-sudo apt-get install git-lfs
-git lfs install
-git clone https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
-git clone https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
 ```
 
 <!-- Docker Install:
@@ -108,6 +99,25 @@ Copy Paste for dashboard:
 https://raw.githubusercontent.com/vllm-project/vllm/refs/heads/main/examples/online_serving/prometheus_grafana/grafana.json 
 ```
 
+<!-- Install Model:
+```
+sudo apt-get install git-lfs
+git lfs install
+git clone https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+git clone https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+``` -->
+
+python -m vllm.entrypoints.openai.api_server \
+--model /mnt/home/ubuntu/DeepSeek-R1-Distill-Llama-70B \
+--served-model-name DeepSeek-R1 \
+--enable-reasoning \
+--reasoning-parser deepseek_r1 \
+--dtype float32 \
+--port 8000 \
+--gpu_memory-utilization 0.99 \
+--tensor-parallel-size 8 \
+--pipeline-parallel-size 2
+
 
 vLLM Serve:
 ```
@@ -115,23 +125,14 @@ python -m vllm.entrypoints.openai.api_server \
 --model /home/ubuntu/DeepSeek-R1-Distill-Qwen-7B \
 --served-model-name DeepSeek-R1 \
 --enable-reasoning \
---reasoning-parser DeepSeek-R1 \
+--reasoning-parser deepseek_r1 \
 --dtype float16 \
 --port 8000 \
 --gpu_memory-utilization 0.98 \
---tensor-parallel-size 1 \
+--tensor-parallel-size 8 \
 --pipeline-parallel-size 2
 
 ```
-python -m vllm.entrypoints.openai.api_server \
---model /home/ubuntu/DeepSeek-R1-Distill-Qwen-1.5B \
---served-model-name DeepSeek-R1 \
---enable-reasoning \
---reasoning-parser DeepSeek-R1 \
---dtype float16 \
---port 8000 \
---gpu_memory-utilization 0.99 \
---pipeline-parallel-size 4
 
 cURL:
 ```
@@ -147,3 +148,19 @@ curl http://0.0.0.0:8000/v1/chat/completions \
 
 Maybe 
 ![alt text](image.png)
+
+
+How to download the model?
+S3 or image replicate or volume replicate
+
+How to create volume replicate?
+
+How to download the model in low configure machine?
+4GB ram not enough 32GB ram mahcine needed
+
+Who to create the EC2 with DeepLearning Image?
+Deep Learning AMI (Ubuntu 22.04) Version 42.0
+
+How to two ec2 mahcine in HPC?
+
+Why it is slow when I rent 10 24GB GPU machine?
