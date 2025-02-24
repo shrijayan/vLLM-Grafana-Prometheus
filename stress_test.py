@@ -5,7 +5,7 @@ from openai import OpenAI
 # Configuration
 openai_api_key = "EMPTY"
 openai_api_base = "http://localhost:8000/v1"
-TOTAL_REQUESTS = 500  # Total number of requests to send
+TOTAL_REQUESTS = 5000  # Total number of requests to send
 CONCURRENCY = 100     # Fixed concurrency value
 
 client = OpenAI(api_key=openai_api_key, base_url=openai_api_base)
