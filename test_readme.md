@@ -45,20 +45,17 @@ nvidia-smi
 sudo mkdir -p /mnt
 sudo lsblk
 
-sudo mount /dev/nvme1n1p1 /mnt
+sudo mount /dev/[] /mnt
 ```
 
 Tmux:
 ```
 sudo apt install tmux
 tmux new -s vllm
-
-source vllm/bin/activate
 ```
 
 Installing Dependencies:
 ```
-sudo apt install python3.12-venv
 python3.12 -m venv vllm
 source vllm/bin/activate
 pip install vllm ray
@@ -218,7 +215,7 @@ python -m vllm.entrypoints.openai.api_server \
 vLLM Serve:
 ```
 python -m vllm.entrypoints.openai.api_server \
---model /home/ubuntu/DeepSeek-R1-Distill-Qwen-7B \
+--model /mnt/home/ubuntu/DeepSeek-R1-Distill-Llama-70B \
 --served-model-name DeepSeek-R1 \
 --enable-reasoning \
 --reasoning-parser deepseek_r1 \
