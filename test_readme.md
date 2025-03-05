@@ -45,7 +45,7 @@ sudo mkdir -p /mnt
 sudo lsblk
 ```
 ```
-sudo mount /dev/[] /mnt
+sudo mount /dev/nvme /mnt
 ```
 
 Tmux:
@@ -163,7 +163,23 @@ python -m vllm.entrypoints.openai.api_server \
 --port 8000 \
 --gpu_memory-utilization 0.99 \
 --tensor-parallel-size 8 \
---pipeline-parallel-size 2
+--pipeline-parallel-size 2 \
+--trust-remote-code
+
+```
+
+```
+python -m vllm.entrypoints.openai.api_server \
+--model /mnt/home/ubuntu/DeepSeek-R1 \
+--served-model-name DeepSeek-R1 \
+--enable-reasoning \
+--reasoning-parser deepseek_r1 \
+--dtype float16 \
+--port 8000 \
+--gpu_memory-utilization 0.99 \
+--tensor-parallel-size 8 \
+--pipeline-parallel-size 6 \
+--trust-remote-code
 
 ```
 
