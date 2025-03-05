@@ -95,6 +95,8 @@ cd vLLM-Grafana-Prometheus
 sudo docker compose up -d
 ```
 
+### Change Prometheus.yml file IP address to the private IP of the machine
+
 Machine 1
 ```
 torchrun --nnodes=2 --node_rank=0 --master_addr=172.31.20.216 --master_port=29500 --nproc-per-node=8 multiprocess_test.py
